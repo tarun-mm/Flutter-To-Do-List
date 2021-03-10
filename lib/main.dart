@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,16 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -67,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return Container(
           margin: EdgeInsets.only(top: 10),
           child: Card(
+            elevation: 4,
             color: Color(0xffFF5083),
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             child: Dismissible(
@@ -103,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Color(0xff000000),
                 ),
               ),
-              key: UniqueKey(),
+              key: Key(_tasks[index]),
               onDismissed: (direction) {
                 setState(() {
                   _tasks.removeAt(index);
@@ -129,46 +125,42 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color(0xff000000),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  margin: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Text(
-                        "To-Do",
-                        style: TextStyle(
-                          color: Color(0xff6200EE),
-                          fontSize: 40,
-                          fontFamily: "MonotonRegular",
-                        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(
+                      "To-Do",
+                      style: TextStyle(
+                        color: Color(0xff6200EE),
+                        fontSize: 40,
+                        fontFamily: "MonotonRegular",
                       ),
-                      Text(
-                        "${_tasksCounter} Tasks left for the day",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
+                    ),
+                    Text(
+                      "${_tasksCounter} Tasks left for the day",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                flex: 5,
-                child: Card(
-                  margin: EdgeInsets.all(15),
-                  color: Color(0xff313335),
-                  child: _getItems(),
-                ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Card(
+                margin: EdgeInsets.all(15),
+                color: Color(0xff313335),
+                child: _getItems(),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -176,8 +168,10 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _showAddTask();
         },
-        tooltip: 'Increment',
-        child: Icon(Icons.add, color: Color(0xff000000),),
+        child: Icon(
+          Icons.post_add_rounded,
+          color: Color(0xff000000),
+        ),
       ),
     );
   }
