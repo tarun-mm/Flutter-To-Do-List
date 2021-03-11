@@ -23,6 +23,35 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> _tasks = [];
   List<bool> _tasksCheck = [];
   List _decoration = [];
+  int themeMode = 1;
+  List _themes = [
+    [
+      Color(0xffFF5083), // 0  - Tasks Card
+      Color(0xffffffff), // 1  - Wavy line Color
+      Color(0xff000000), // 2  - CheckBox tick Color
+      Color(0xff76FF03), // 3  - Dismissible background Color
+      Color(0xff000000), // 4  - Dismissible icon Color
+      Color(0xff000000), // 5  - Background Color Main
+      Color(0xff6200EE), // 6  - To Do Color
+      Color(0xffffffff), // 7  - Tasks remaining Color
+      Color(0xff313335), // 8  - Tasks Container Color
+      Color(0xffbb86fc), // 9  - Floating button background
+      Color(0xff000000), // 10 - Floating button icon
+    ],
+    [
+      Color(0xffcfd8dc), // 0  - Tasks Card
+      Color(0xffffffff), // 1  - Wavy line Color
+      Color(0xff26c6da), // 2  - CheckBox tick Color
+      Color(0xff76FF03), // 3  - Dismissible background Color
+      Color(0xff000000), // 4  - Dismissible icon Color
+      Color(0xff26c6da), // 5  - Background Color Main
+      Color(0xffffffff), // 6  - To Do Color
+      Color(0xffffffff), // 7  - Tasks remaining Color
+      Color(0xffffffff), // 8  - Tasks Container Color
+      Color(0xff0091ea), // 9  - Floating button background
+      Color(0xff000000), // 10 - Floating button icon
+    ]
+  ];
 
   void _showAddTask() {
     showDialog(
@@ -62,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return Container(
           margin: EdgeInsets.only(top: 10),
           child: Card(
-            elevation: 4,
-            color: Color(0xffFF5083),
+            elevation: 8,
+            color: _themes[themeMode][0],
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             child: Dismissible(
               child: ListTile(
@@ -73,13 +102,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: _decoration[index],
                     decorationThickness: 3,
                     decorationStyle: TextDecorationStyle.wavy,
-                    decorationColor: Color(0xffffffff),
+                    decorationColor: _themes[themeMode][1],
                     fontFamily: "RocknRollOne-Regular.ttf",
                   ),
                 ),
                 trailing: Checkbox(
                   value: _tasksCheck[index],
-                  activeColor: Color(0xff000000),
+                  activeColor: _themes[themeMode][2],
                   onChanged: (bool value) {
                     setState(() {
                       _tasksCheck[index] = value;
@@ -93,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               background: Card(
-                color: Color(0xff76FF03),
+                color: _themes[themeMode][3],
                 child: Icon(
                   Icons.fact_check,
-                  color: Color(0xff000000),
+                  color: _themes[themeMode][4],
                 ),
               ),
               key: Key(_tasks[index]),
@@ -104,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _tasks.removeAt(index);
                   _tasksCheck.removeAt(index);
+                  _decoration.removeAt(index);
                 });
               },
             ),
@@ -123,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xff000000),
+      backgroundColor: _themes[themeMode][5],
       body: SafeArea(
         child: Column(
           children: [
@@ -133,18 +163,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Text(
-                      "To-Do",
-                      style: TextStyle(
-                        color: Color(0xff6200EE),
-                        fontSize: 40,
-                        fontFamily: "MonotonRegular",
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (themeMode == 1) {
+                            themeMode = 0;
+                          } else {
+                            themeMode = 1;
+                          }
+                        });
+                      },
+                      child: Text(
+                        "To-Do",
+                        style: TextStyle(
+                          color: _themes[themeMode][6],
+                          fontSize: 40,
+                          fontFamily: "MonotonRegular",
+                        ),
                       ),
                     ),
                     Text(
                       "${_tasksCounter} Tasks left for the day",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: _themes[themeMode][7],
                         fontSize: 20,
                       ),
                     ),
@@ -156,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 5,
               child: Card(
                 margin: EdgeInsets.all(15),
-                color: Color(0xff313335),
+                color: _themes[themeMode][8],
                 child: _getItems(),
               ),
             ),
@@ -164,13 +205,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xffbb86fc),
+        backgroundColor: _themes[themeMode][9],
         onPressed: () {
           _showAddTask();
         },
         child: Icon(
           Icons.post_add_rounded,
-          color: Color(0xff000000),
+          color: _themes[themeMode][10],
         ),
       ),
     );
