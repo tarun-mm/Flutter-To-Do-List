@@ -86,61 +86,61 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _getItems() {
-    return ListView.builder(itemBuilder: (context, index) {
-      if (index < _tasks.length) {
-        return Container(
-          margin: EdgeInsets.only(top: 10),
-          child: Card(
-            elevation: 8,
-            color: _themes[themeMode][0],
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-            child: Dismissible(
-              child: ListTile(
-                leading: Text(
-                  _tasks[index],
-                  style: TextStyle(
-                    decoration: _decoration[index],
-                    decorationThickness: 3,
-                    decorationStyle: TextDecorationStyle.wavy,
-                    decorationColor: _themes[themeMode][1],
-                    fontFamily: "RocknRollOne-Regular.ttf",
+    return ListView.builder(
+        itemCount: _tasks.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Card(
+              elevation: 8,
+              color: _themes[themeMode][0],
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              child: Dismissible(
+                child: ListTile(
+                  leading: Text(
+                    _tasks[index],
+                    style: TextStyle(
+                      decoration: _decoration[index],
+                      decorationThickness: 3,
+                      decorationStyle: TextDecorationStyle.wavy,
+                      decorationColor: _themes[themeMode][1],
+                      fontFamily: "RocknRollOne-Regular.ttf",
+                    ),
+                  ),
+                  trailing: Checkbox(
+                    value: _tasksCheck[index],
+                    activeColor: _themes[themeMode][2],
+                    onChanged: (bool value) {
+                      setState(() {
+                        _tasksCheck[index] = value;
+                        if (_tasksCheck[index] == true) {
+                          _decoration[index] = TextDecoration.lineThrough;
+                        } else {
+                          _decoration[index] = TextDecoration.none;
+                        }
+                      });
+                    },
                   ),
                 ),
-                trailing: Checkbox(
-                  value: _tasksCheck[index],
-                  activeColor: _themes[themeMode][2],
-                  onChanged: (bool value) {
-                    setState(() {
-                      _tasksCheck[index] = value;
-                      if (_tasksCheck[index] == true) {
-                        _decoration[index] = TextDecoration.lineThrough;
-                      } else {
-                        _decoration[index] = TextDecoration.none;
-                      }
-                    });
-                  },
+                background: Card(
+                  color: _themes[themeMode][3],
+                  child: Icon(
+                    Icons.fact_check,
+                    color: _themes[themeMode][4],
+                  ),
                 ),
+                key: Key(_tasks[index]),
+                onDismissed: (direction) {
+                  setState(() {
+                    _tasks.removeAt(index);
+                    _tasksCheck.removeAt(index);
+                    _decoration.removeAt(index);
+                  });
+                },
               ),
-              background: Card(
-                color: _themes[themeMode][3],
-                child: Icon(
-                  Icons.fact_check,
-                  color: _themes[themeMode][4],
-                ),
-              ),
-              key: Key(_tasks[index]),
-              onDismissed: (direction) {
-                setState(() {
-                  _tasks.removeAt(index);
-                  _tasksCheck.removeAt(index);
-                  _decoration.removeAt(index);
-                });
-              },
             ),
-          ),
-        );
-      }
-    });
+          );
+        });
   }
 
   @override
