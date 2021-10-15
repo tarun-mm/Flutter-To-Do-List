@@ -1,16 +1,16 @@
 # todoprac
 
-A new Flutter application.
+A basic Flutter Application used to learn States in Flutter
 
-## Getting Started
+## What it is about
 
-This project is a starting point for a Flutter application.
+The app is used to add and remove tasks with a sliding animation. It also has a light mode to dark mode switch.
+On pressing the To-Do text on the screen it changes from light mode to dark mode and vice versa.
+It also has a task counter which counts the number of tasks dynamically using Statful Widgets.
 
-A few resources to get you started if this is your first Flutter project:
+Here are some Screeshots:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://user-images.githubusercontent.com/55652206/137442292-a6c717c6-8c7b-4968-bc99-a2ac6eb4d66d.png)
+![image](https://user-images.githubusercontent.com/55652206/137442330-e3b875b9-3bb8-4d5b-8823-72e0234329df.png)
+![image](https://user-images.githubusercontent.com/55652206/137442406-6ae35154-c9d0-4654-bf0a-7145ed7dcaf4.png)
+![image](https://user-images.githubusercontent.com/55652206/137442455-396d065d-1921-49a2-932b-7594d42269f1.png)
